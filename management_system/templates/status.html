@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Status</title>
+    {% load static %}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'status.js' %}"></script>
+</head>
+<body>
+
+<span>Hello {{ user_name }}, </span>{% if status %}<span id="database-status"> you are on {{ status }}{% endif %}</span><span id="status"></span>
+
+<form method="post" id="post-form" action="{% url 'status' %}">
+    <input hidden name="status" value="{{ status }}">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <select data-url="{% url 'status' %}" id="status-select" name="status" onchange="updateStatus()">
+        <option selected></option>
+        <option value="Vacation" >Vacation</option>
+        <option value="Working">Working</option>
+        <option value="Business_Trip">Business Trip</option>
+    </select>
+</form>
+{% for user in users %}
+{#<span>{{ user.user_profile.user_name }} {% if user.status %}<span id="users-status">({{ user.status }})</span>{% endif %}<span id="recieved-status"></span></span><br>#}
+<span>{{ user.user_profile.user_name }} {% if user.status %}<span id="users-status">({{ user.status }})</span>{% endif %}</span><br>
+{% endfor %}
+</body>
+</html>
