@@ -43,9 +43,14 @@ def status(request):
         user_status.status = request.POST['status']
         user_status.save()
 
-        return JsonResponse({'status': user_status.status.replace('_', ' ')})
-    if redis.get('user_name'):
+        return JsonResponse(
+            {
+                'status': user_status.status.replace('_', ' '),
+                'user_name': user_status.user_profile.user_name
+            }
+        )
 
+    if redis.get('user_name'):
         user_status = UserStatus.objects.get(user_profile=user_profile)
         context = {}
         context['user_name'] = redis.get('user_name')
@@ -55,3 +60,14 @@ def status(request):
 
         return render(request, 'status.html', context)
     return HttpResponse('Unauthorized', status=401)
+
+
+def filter_by_status(request):
+    if request.is_ajax() and request.method == 'POST':
+        user_status = UserStatus.objects.filter(status=request.POST['status'])
+        context = {}
+        for item in user_status:
+            context.update({item.user_profile.user_name: item.status})
+        if context:
+            return JsonResponse(context)
+        return redirect(status)

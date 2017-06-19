@@ -16,14 +16,23 @@
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     <select data-url="{% url 'status' %}" id="status-select" name="status" onchange="updateStatus()">
         <option selected></option>
-        <option value="Vacation" >Vacation</option>
+        <option value="Vacation">Vacation</option>
+        <option value="Working">Working</option>
+        <option value="Business_Trip">Business Trip</option>
+    </select>
+</form>
+
+<form method="post" id="filter-form" action="{% url 'filter' %}">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <select data-url="{% url 'filter' %}" id="filter" name="status" onchange="filterByStatus()">
+        <option selected>Filter By Status</option>
+        <option value="Vacation">Vacation</option>
         <option value="Working">Working</option>
         <option value="Business_Trip">Business Trip</option>
     </select>
 </form>
 {% for user in users %}
-{#<span>{{ user.user_profile.user_name }} {% if user.status %}<span id="users-status">({{ user.status }})</span>{% endif %}<span id="recieved-status"></span></span><br>#}
-<span>{{ user.user_profile.user_name }} {% if user.status %}<span id="users-status">({{ user.status }})</span>{% endif %}</span><br>
+    <span id="{{ user.user_profile.user_name }}" class="users"><span id="user-name-{{ user.user_profile.user_name }}">{{ user.user_profile.user_name }} </span><span id="user-status-{{ user.user_profile.user_name }}">{% if user.status %}({{ user.status }}){% endif %}</span></span><br>
 {% endfor %}
 </body>
 </html>
