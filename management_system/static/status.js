@@ -1,9 +1,7 @@
-/**
- * Created by volodymyr.boiko on 6/15/17.
- */
 $(document).ready(function () {
   updateStatus();
-  filterByStatus()
+  filterByStatus();
+  searchUser();
 });
 
 updateStatus = function () {
@@ -57,3 +55,21 @@ filterByStatus = function () {
     }
   })
 };
+
+
+function searchUser() {
+    var input, filter, ul, li, a, i;
+    input = $("#my-input");
+    filter = input.val();
+    ul = document.getElementById("my-ul");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByClassName("user-name")[0];
+        if (a.innerHTML.indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+}
