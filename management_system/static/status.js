@@ -18,7 +18,7 @@ updateStatus = function () {
     data: "status=" + status,
     success: function (data) {
       $('#database-status').attr('hidden', 'hidden');
-      $('#users-status').attr('hidden', 'hidden');
+      $('#User-status').attr('hidden', 'hidden');
       $('#user-status-' + data['user_name']).html('(' + data['status'] + ')');
       $('#status').html('you are on ' + data['status']);
     }
@@ -27,9 +27,9 @@ updateStatus = function () {
 
 
 filterByStatus = function () {
-  var $users = $('.users');
-  $users.map(function (el) {
-    $users[el].style.display = "inline";
+  var $User = $('.User');
+  $User.map(function (el) {
+    $User[el].style.display = "inline";
   });
   var status = $("#filter :selected").val();
   $.ajax({
@@ -41,8 +41,8 @@ filterByStatus = function () {
     dataType: 'json',
     data: "status=" + status,
     success: function (data) {
-      $users.map(function (el) {
-        $users[el].style.display = "none";
+      $User.map(function (el) {
+        $User[el].style.display = "none";
       });
       for (user in data) {
         if ($('#user-name-' + user).attr('id') == 'user-name-' + user) {

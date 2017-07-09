@@ -47,9 +47,9 @@
 
 
 <ul id="my-ul">
-    {% for user in users %}
+    {% for user in User %}
         <li><a href="#"><span id="{{ user.user_profile.user_name }}"
-                              class="users"><span
+                              class="User"><span
                 id="user-name-{{ user.user_profile.user_name }}"
                 class="user-name">{{ user.user_profile.user_name }} </span><span
                 id="user-status-{{ user.user_profile.user_name }}">{% if user.status %}

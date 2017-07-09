@@ -9,7 +9,7 @@ class UserProfile(models.Model):
     user_name = models.CharField(max_length=50, unique=True)
 
 
-class UserStatus(models.Model):
+class Usertatus(models.Model):
 
     status = models.CharField(max_length=50)
     user_profile = models.ForeignKey(UserProfile, default='')
